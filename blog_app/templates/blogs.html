@@ -1,0 +1,51 @@
+{% extends "layouts/base.html" %}
+
+{% block context %}
+<a href="{% url "add_blogs" %}" class="btn btn-secondary mt-4 mb-4"> ADD BLOG </a>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">title</th>
+        <th scope="col">description</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for blog in blogs %}
+        <tr> 
+            <th scope="row">{{ blog.id }}</th>
+            <td>{{ blog.title }}</td>
+            <td>{{ blog.description }}</td>
+            <td>
+              <a href="{% url "update_blogs" blog.id %}" class="btn btn-success" >Update</a>
+              <a href="" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#{{blog.id}}">Delete</a>
+            </td>       
+        </tr>
+        <div class="modal fade" id="{{blog.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Are you sure?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <a href="{% url "delete_blogs" blog.id %}" type="button" class="btn btn-primary">Yes</a>
+              </div>
+            </div>
+          </div>
+          </div>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+
+{% endblock context %}
+
+
+
